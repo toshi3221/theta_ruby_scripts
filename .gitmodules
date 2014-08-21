@@ -1,0 +1,3 @@
+[submodule "ruby_ptp_ip"]
+	path = ruby_ptp_ip
+	url = git@github.com:toshi3221/ruby_ptp_ip.git
