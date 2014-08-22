@@ -1,17 +1,6 @@
-require './ruby_ptp_ip/ptp.rb'
-require './ruby_ptp_ip/ptp_ip.rb'
-require './ruby_ptp_ip/ptp_ip_initiator.rb'
+require './lib/theta_initiator.rb'
 
-# THETAのIPアドレスとPTP-IPのポート番号
-ADDR = "192.168.1.1"
-PORT = 15740
-
-# THETAに送るレスポンダ情報
-NAME = "Ruby_THETA_Shutter"
-GUID = "ab653fb8-4add-44f0-980e-939b5f6ea266"
-PROTOCOL_VERSION = 65536
-
-PtpIpInitiator.new(ADDR, PORT, GUID, NAME, PROTOCOL_VERSION).open do |initiator|
+ThetaInitiator.new.open do |initiator|
 
   # DeviceInfoの取得とパースと表示
   recv_pkt, data = initiator.data_operation(PTP_OC_GetDeviceInfo)
