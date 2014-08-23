@@ -1,6 +1,6 @@
 require './lib/theta_initiator.rb'
 
-ThetaInitiator.new.open do |initiator|
+ThetaInitiator.open do |initiator|
         
   # オブジェクトの列挙
   # 1つ目のパラメータはストレージID. 0xFFFFFFFFのときは全てのストレージから列挙
