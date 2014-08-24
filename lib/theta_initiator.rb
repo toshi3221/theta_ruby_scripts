@@ -1,5 +1,3 @@
-require_relative '../ruby_ptp_ip/ptp.rb'
-require_relative '../ruby_ptp_ip/ptp_ip.rb'
 require_relative '../ruby_ptp_ip/ptp_ip_initiator.rb'
 
 class ThetaInitiator

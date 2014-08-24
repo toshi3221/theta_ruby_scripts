@@ -6,19 +6,19 @@ ThetaInitiator.open do |initiator|
   # [0,0]はストレージIDとキャプチャフォーマット
   # それぞれ0の時はデバイス側が判断する.
   puts "InitiateCapture call. transaction_id: #{initiator.next_transaction_id.to_s}"
-  initiator.simple_operation(PTP_OC_InitiateCapture, [0,0])
+  initiator.operation 'InitiateCapture', [0,0]
 
   print "Capturing...\r"
 
   # ObjectAddedイベントの待機
-  recv_pkt = initiator.wait_event PTP_EC_ObjectAdded  # 期待するevent_code指定は無ければチェックしない
+  response = initiator.wait_event :ObjectAdded  # 期待するevent_code指定は無ければチェックしない
 
-  print "Object Added!\n  Event: #{recv_pkt.payload.to_hash.inspect}\n"
+  print "Object Added!\n  Event: #{response.inspect}\n"
 
-  # CaptureCompletedイベントの待機
-  recv_pkt = initiator.wait_event
+  # CaptureCompleteイベントの待機
+  response = initiator.wait_event 0x400D
 
-  print "Capture Completed!\n  Event: #{recv_pkt.payload.to_hash.inspect}\n"
+  print "Capture Completed!\n  Event: #{response.inspect}\n"
 
 end
 
