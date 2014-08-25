@@ -46,6 +46,12 @@ initiator = ThetaInitiator.open
 にてイニシエータをオープン(コマンド接続、イベント接続を行い、OpenSessionコマンドを完了)します。
 PTPコマンドの送信とイベント受信が可能な状態になります。
 
+ブロック定義しないインタプリタ形式で実行する場合は操作了時クローズも行ってください
+
+```ruby
+initiator.close
+```
+
 ### イニシエータ操作
 
 ThetaInitiator.openによって受け取ったinitiatorオブジェクトによって各種操作が行えます。
