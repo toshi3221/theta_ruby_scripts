@@ -46,7 +46,7 @@ initiator = ThetaInitiator.open
 にてイニシエータをオープン(コマンド接続、イベント接続を行い、OpenSessionコマンドを完了)します。
 PTPコマンドの送信とイベント受信が可能な状態になります。
 
-ブロック定義しないインタプリタ形式で実行する場合は操作了時クローズも行ってください
+ブロック定義しないインタプリタ形式で実行する場合は操作終了時クローズも行ってください
 
 ```ruby
 initiator.close
@@ -59,7 +59,7 @@ ThetaInitiator.openによって受け取ったinitiatorオブジェクトによ�
 #### operation
 
 ```ruby
-  initiator.operation command_code_name, parameters
+initiator.operation command_code_name, parameters
 ```
 
 PTP operation定義のコマンド名とparametersを指定します。コマンド名は、Symbol、parametersはArrayで指定してください
@@ -67,22 +67,22 @@ PTP operation定義のコマンド名とparametersを指定します。コマン
 ##### ex.
 
 ```ruby
-  response = initiator.operation :InitiateCapture, [0,0]
+response = initiator.operation :InitiateCapture, [0,0]
 ```
 
 ```
-  response:
-    :code           : PTP operationレスポンスコード
-    :parameters     : PTP operationレスポンスパラメータ。Arrayで返ります
-    :transaction_id : operation要求したtransaction_id
-    :data           : 指定したoperationにデータフェースが入る場合にバイナリ分割された1バイト単位のArrayリストで返ります。
-                     たとえば32bit_INTが格納されている場合は、data.pack('C*').unpack('L')のようにデシリアライズします。
+response:
+  :code           : PTP operationレスポンスコード
+  :parameters     : PTP operationレスポンスパラメータ。Arrayで返ります
+  :transaction_id : operation要求したtransaction_id
+  :data           : 指定したoperationにデータフェースが入る場合にバイナリ分割された1バイト単位のArrayリストで返ります。
+                    たとえば32bit_INTが格納されている場合は、data.pack('C*').unpack('L')のようにデシリアライズします。
 ```
 
 #### event
 
 ```ruby
-  initiator.wait_event expected_event_code_name
+initiator.wait_event expected_event_code_name
 ```
 
 イベントの同期待ちのみ対応しています。expected_event_code_nameは期待するevent_codeを指定して異なるものを受信した場合は例外を返します。
@@ -91,15 +91,15 @@ PTP operation定義のコマンド名とparametersを指定します。コマン
 ex.
 
 ```ruby
-  initiator.wait_event :ObjectAdded
-  initiator.wait_event
+initiator.wait_event :ObjectAdded
+initiator.wait_event
 ```
 
 ```
-  response:
-    :event_code     : PTP eventコード
-    :parameters     : PTP eventパラメータ。Arrayで返ります
-    :transaction_id : event発生のきっかけとなったtransaction_id
+response:
+  :event_code     : PTP eventコード
+  :parameters     : PTP eventパラメータ。Arrayで返ります
+  :transaction_id : event発生のきっかけとなったtransaction_id
 ```
 
 #### コード名からのコード変換
@@ -109,19 +109,19 @@ operation、event等、コード名称からコードに変換するいくつか
 
 ```ruby
 
-  # event_code :ObjectAdded => PTP_EC_ObjectAdded(0x4002)
-  initiator.event_code name
+# event_code :ObjectAdded => PTP_EC_ObjectAdded(0x4002)
+initiator.event_code name
 
-  # operation_code :InitiateCapture => PTP_OC_InitiateCapture(0x100E)
-  initiator.operation_code name
+# operation_code :InitiateCapture => PTP_OC_InitiateCapture(0x100E)
+initiator.operation_code name
 
-  # operation_response_code :OK => (0x2001)
-  initiator.operation_response_code name
+# operation_response_code :OK => (0x2001)
+initiator.operation_response_code name
 
-  # device_property_code :BatteryLevel => PTP_DPC_BatteryLevel(0x5001)
-  initiator.device_property_code name
+# device_property_code :BatteryLevel => PTP_DPC_BatteryLevel(0x5001)
+initiator.device_property_code name
 
-  # object_format_code :EXIF_JPEG => PTP_OFC_EXIF_JPEG(0x3801)
-  initiator.object_format_code name
+# object_format_code :EXIF_JPEG => PTP_OFC_EXIF_JPEG(0x3801)
+initiator.object_format_code name
 
 ```
