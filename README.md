@@ -59,15 +59,19 @@ ThetaInitiator.openによって受け取ったinitiatorオブジェクトによ�
 #### operation
 
 ```ruby
-initiator.operation command_code_name, parameters
+initiator.operation command_code_name, parameters, data
 ```
 
-PTP operation定義のコマンド名とparametersを指定します。コマンド名は、Symbol、parametersはArrayで指定してください
+PTP operation定義のコマンド名とparametersを指定します。コマンド名は、Symbol、parametersはArrayで指定してください。
+SetDevicePropValue等のデータフェーズがあるコマンドの場合はdataをunpack('C*')の形式で指定して下さい。
 
 ##### ex.
 
 ```ruby
 response = initiator.operation :InitiateCapture, [0,0]
+response = initiator.operation :SetDevicePropValue,
+             [initiator.device_property_code(:WhiteBalance)],
+             [initiator.white_balance_code(:Daylight)].pack('S').unpack('C*')
 ```
 
 ```
