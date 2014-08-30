@@ -13,12 +13,8 @@ ThetaInitiator.open do |initiator|
   # ObjectAddedイベントの待機
   response = initiator.wait_event :ObjectAdded  # 期待するevent_code指定は無ければチェックしない
 
-  print "Object Added!\n  Event: #{response.inspect}\n"
-
   # CaptureCompleteイベントの待機
   response = initiator.wait_event 0x400D
-
-  print "Capture Completed!\n  Event: #{response.inspect}\n"
 
 end
 

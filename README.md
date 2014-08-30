@@ -87,10 +87,14 @@ response:
 
 ```ruby
 initiator.wait_event expected_event_code_name
+initiator.get_event expected_event_code_name
+initiator.has_event?
 ```
 
-イベントの同期待ちのみ対応しています。expected_event_code_nameは期待するevent_codeを指定して異なるものを受信した場合は例外を返します。
+wait_eventメソッドにてイベントの同期待ちに対応しています。expected_event_code_nameは期待するevent_codeを指定して異なるものを受信した場合は例外を返します。
 省略することも可能です。
+
+イベント待ちでスレッドをブロックされたくない場合はhas_event?メソッドにてイベントがあるか事前に確認するか、get_eventメソッドを利用して下さい。get_eventはイベント受信がない場合nilを返します。
 
 ex.
 

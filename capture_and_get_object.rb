@@ -11,11 +11,9 @@ ThetaInitiator.open do |initiator|
   # ObjectAddedイベントの待機
   response = initiator.wait_event
   added_object_handle = response[:parameters][0]
-  print "Object Added!\n  Event: #{response.inspect}\n"
 
   # CaptureCompletedイベントの待機
   response = initiator.wait_event
-  print "Capture Completed!\n  Event: #{response.inspect}\n"
 
   puts "GetObject..."
   response = initiator.operation :GetObject, [added_object_handle]
