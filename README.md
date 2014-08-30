@@ -113,19 +113,46 @@ operation、event等、コード名称からコードに変換するいくつか
 
 ```ruby
 
+# Event Code Hash: code => event_name
+PtpCode::EVENTS
 # event_code :ObjectAdded => PTP_EC_ObjectAdded(0x4002)
-initiator.event_code name
+initiator.event_code :ObjectAdded
+# event_name 0x4002 => "ObjectAdded"
+initiator.event_name 0x4002
 
+# Operation Code Hash: code => operation_name
+PtpCode::OPERATIONS
 # operation_code :InitiateCapture => PTP_OC_InitiateCapture(0x100E)
-initiator.operation_code name
+initiator.operation_code :InitiateCapture
+# operation_code 0x100E => "InitiateCapture"
+initiator.operation_name 0x100E
 
+# Operation Response Code Hash: code => operation_response_name
+PtpCode::OPERATION_RESPONSES
 # operation_response_code :OK => (0x2001)
-initiator.operation_response_code name
+initiator.operation_response_code :OK
+# operation_response_name 0x2001 => "OK"
+initiator.operation_response_name 0x2001
 
+# Device Property Hash: code => device_property_name
+PtpCode::DEVICE_PROPERTIES
 # device_property_code :BatteryLevel => PTP_DPC_BatteryLevel(0x5001)
-initiator.device_property_code name
+initiator.device_property_code :BatteryLevel
+# device_property_name 0x5001 => "BatteryLevel"
+initiator.device_property_name 0x5001
 
+# Object Format Hash: code => object_format_name
+PtpCode::OBJECT_FORMATS
 # object_format_code :EXIF_JPEG => PTP_OFC_EXIF_JPEG(0x3801)
-initiator.object_format_code name
+initiator.object_format_code :EXIF_JPEG
+# object_format_name 0x3801 => "EXIF_JPEG"
+initiator.object_format_name 0x3801
+
+# White Balance Hash: code => white_balance_name
+PtpCode::WHITE_BALANCES
+# white_balance_code :Daylight => PTP_WB_Daylight(0x0004)
+initiator.white_balance_code :Daylight
+# white_balance_name 0x0004 => 'Daylight'
+initiator.white_balance_name 0x0004
 
 ```
