@@ -34,5 +34,5 @@ build/
 .rvmrc
 
 # theta file
-theta_pic.jpg
+theta_pic*.jpg
 theta_thumb.jpg
