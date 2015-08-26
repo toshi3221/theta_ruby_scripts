@@ -1,7 +1,9 @@
 require './lib/theta_initiator.rb'
 require 'FileUtils'
 
+
 ThetaInitiator.open do |initiator|
+	Current = Dir.pwd
 
 	t = Time.now
 	date = "#{t.year}-#{t.month}-#{t.day}-#{t.hour}#{t.min}#{t.sec}"
@@ -9,7 +11,8 @@ ThetaInitiator.open do |initiator|
 
 	BRIGHTNESS = [-2000,0,2000]
 
-	object_handles = Array.new(3) 
+	object_handles = Array.new(3)
+	file_path = Array.new(3)   
 
 	i = 0
 
@@ -37,7 +40,10 @@ ThetaInitiator.open do |initiator|
 		File.open("./outputs/HDR-#{date}/theta_pic_#{value}.jpg", "wb") do |f|
 			f.write(response[:data].pack("C*"))
 			puts "#{i+1}/3 Saved!"
+			file_path[i] = "/outputs/HDR-#{date}/theta_pic_#{value}.jpg"
 		end
 		i+=1
 	end
+
+	system "luminance-hdr-cli.exe -o #{Current}/outputs/HDR-#{date}/HDR.jpg #{Current}#{file_path[0]} #{Current}#{file_path[1]} #{Current}#{file_path[2]}"
 end
