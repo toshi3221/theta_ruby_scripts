@@ -3,13 +3,14 @@ require 'FileUtils'
 
 
 ThetaInitiator.open do |initiator|
+
 	Current = Dir.pwd
 
 	t = Time.now
 	date = "#{t.year}-#{t.month}-#{t.day}-#{t.hour}#{t.min}#{t.sec}"
 	FileUtils.mkdir_p("./outputs/HDR-#{date}")
 
-	BRIGHTNESS = [-2000,0,2000]
+	BRIGHTNESS = [-1000,0,1000]
 
 	object_handles = Array.new(3)
 	file_path = Array.new(3)   
@@ -45,5 +46,6 @@ ThetaInitiator.open do |initiator|
 		i+=1
 	end
 
-	system "luminance-hdr-cli.exe -o #{Current}/outputs/HDR-#{date}/HDR.jpg #{Current}#{file_path[0]} #{Current}#{file_path[1]} #{Current}#{file_path[2]}"
+	system "luminance-hdr-cli.exe -s #{Current}/outputs/HDR-#{date}/HDR.jpg #{Current}#{file_path[1]} #{Current}#{file_path[0]} #{Current}#{file_path[2]}"
+	system "luminance-hdr-cli.exe -o #{Current}/outputs/HDR-#{date}/LDR.jpg #{Current}#{file_path[1]} #{Current}#{file_path[0]} #{Current}#{file_path[2]}"
 end
