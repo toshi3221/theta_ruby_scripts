@@ -52,5 +52,6 @@ ThetaInitiator.open do |initiator|
 
 	#Open3.capture 出力抑制のため
 	Open3.capture3 ("luminance-hdr-cli.exe --tmo mantiuk08 -o #{current}/outputs/HDR-#{date}/HDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
+	Open3.capture3 ("luminance-hdr-cli.exe -o #{current}/outputs/HDR-#{date}/LDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
 
 end
