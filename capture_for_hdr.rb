@@ -18,7 +18,7 @@ ThetaInitiator.open do |initiator|
 	object_handles = Array.new(3)
 	file_path = Array.new(3)   
 
-	osn =  RbConfig::CONFIG['host_os']
+	osn =  Config::CONFIG['host_os']
 	os = osn =~ /mswin(?!ce)|mingw|cygwin|bccwin/ ? "win" : "other"
 
 	i = 0
