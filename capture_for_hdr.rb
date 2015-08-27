@@ -2,6 +2,9 @@ require './lib/theta_initiator.rb'
 require 'FileUtils'
 require 'open3'
 
+#Luminance HDR をインストール、luminance-hdr-cliのPath設定が必要です。
+#動作環境 Win7/
+
 ThetaInitiator.open do |initiator|
 
 	current = Dir.pwd
@@ -51,7 +54,11 @@ ThetaInitiator.open do |initiator|
 	end
 
 	#Open3.capture 出力抑制のため
-	Open3.capture3 ("luminance-hdr-cli.exe --tmo mantiuk08 -o #{current}/outputs/HDR-#{date}/HDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
+	#Windows →exe　/　それ以外　→　exeはつけない
+	puts "Create HDR file..."
+	Open3.capture3 ("luminance-hdr-cli.exe　--tmo mantiuk08 -o #{current}/outputs/HDR-#{date}/HDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
+	puts "Finish"
+	puts "Create LDR file..."
 	Open3.capture3 ("luminance-hdr-cli.exe -o #{current}/outputs/HDR-#{date}/LDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
-
+	puts "Finish"
 end
