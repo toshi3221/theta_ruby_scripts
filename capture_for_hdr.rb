@@ -13,6 +13,8 @@ ThetaInitiator.open do |initiator|
 	tmo = inputs["t"]
 	current = Dir.pwd
 
+	brightness_num = brightness.length
+
 	t = Time.now
 	date = "#{t.year}-#{t.month}-#{t.day}-#{t.hour}#{t.min}#{t.sec}"
 	FileUtils.mkdir_p("./outputs/HDR-#{date}")
@@ -46,26 +48,32 @@ ThetaInitiator.open do |initiator|
 	i=0
 
 	for value in brightness
-		a=0
-		puts "GetObject...#{i+1}/3"
+		puts "GetObject...#{i+1}/#{brightness_num}"
 		file_path[i] = "/outputs/HDR-#{date}/theta_pic_#{value}.jpg"
 		data_size = File.open(".#{file_path[i]}", "wb") do |f|
 			response = initiator.operation(:GetObject, [object_handles[i]]) do |data|
 				f.write data
 			end
-			puts "#{i+1}/3 Saved (data_size : #{response[:data_size]} byte)"
+			puts "#{i+1}/#{brightness_num} Saved (data_size : #{response[:data_size]} byte)"
 		end
 		i+=1
 	end
 
-	#Open3.capture 出力抑制のため
+	i=0
+	input_file_path =""
 
+	for value in brightness
+		input_file_path += current.to_s  + file_path[i].to_s + " "
+		i+=1
+	end
+
+	#Open3.capture 出力抑制のため
 	luminance = os == "win" ? "luminance-hdr-cli.exe" : "luminance-hdr-cli"
 
 	puts "Create HDR file..."
-	Open3.capture3 ("#{luminance} --tmo #{tmo} -o #{current}/outputs/HDR-#{date}/HDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
+	Open3.capture3 ("#{luminance} --tmo #{tmo} -o #{current}/outputs/HDR-#{date}/HDR.jpg  #{input_file_path}")
 	puts "Finish"
 	puts "Create LDR file..."
-	Open3.capture3 ("#{luminance} -o #{current}/outputs/HDR-#{date}/LDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
+	Open3.capture3 ("#{luminance} -o #{current}/outputs/HDR-#{date}/LDR.jpg  #{input_file_path}")
 	puts "Finish"
 end
