@@ -57,19 +57,13 @@ ThetaInitiator.open do |initiator|
 	end
 
 	#Open3.capture 出力抑制のため
-	if os == "win"
-		puts "Create HDR file..."
-		Open3.capture3 ("luminance-hdr-cli.exe --tmo mantiuk08 -o #{current}/outputs/HDR-#{date}/HDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
-		puts "Finish"
-		puts "Create LDR file..."
-		Open3.capture3 ("luminance-hdr-cli.exe -o #{current}/outputs/HDR-#{date}/LDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
-		puts "Finish"
-	else
-		puts "Create HDR file..."
-		Open3.capture3 ("luminance-hdr-cli --tmo mantiuk08 -o #{current}/outputs/HDR-#{date}/HDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
-		puts "Finish"
-		puts "Create LDR file..."
-		Open3.capture3 ("luminance-hdr-cli -o #{current}/outputs/HDR-#{date}/LDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
-		puts "Finish"
-	end
+
+	luminance = os == "win" ? "luminance-hdr-cli.exe" : "luminance-hdr-cli"
+	
+	puts "Create HDR file..."
+	Open3.capture3 ("#{luminance} --tmo mantiuk08 -o #{current}/outputs/HDR-#{date}/HDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
+	puts "Finish"
+	puts "Create LDR file..."
+	Open3.capture3 ("#{luminance} -o #{current}/outputs/HDR-#{date}/LDR.jpg #{current}#{file_path[1]} #{current}#{file_path[0]} #{current}#{file_path[2]}")
+	puts "Finish"
 end
