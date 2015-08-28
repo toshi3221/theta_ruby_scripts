@@ -46,6 +46,7 @@ ThetaInitiator.open do |initiator|
 	end
 
 	i=0
+	a=0
 
 	for value in brightness
 		puts "GetObject...#{i+1}/#{brightness_num}"
@@ -53,7 +54,12 @@ ThetaInitiator.open do |initiator|
 		data_size = File.open(".#{file_path[i]}", "wb") do |f|
 			response = initiator.operation(:GetObject, [object_handles[i]]) do |data|
 				f.write data
+				a+=1
+				if a%100 == 0 then
+					print "."
+				end
 			end
+			puts""
 			puts "#{i+1}/#{brightness_num} Saved (data_size : #{response[:data_size]} byte)"
 		end
 		i+=1
